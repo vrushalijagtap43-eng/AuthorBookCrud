@@ -55,7 +55,17 @@ class Bookcrud(APIView):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    
+
+    def patch(self,request,id):
+        try:
+            book=Book.objects.get(id=id)
+        except Book.DoesNotExist:
+            return Response("not exuixt",status=status.HTTP_404_NOT_FOUND)
+        serializer=BookSerializer(book,data= request.data,partial= True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 
