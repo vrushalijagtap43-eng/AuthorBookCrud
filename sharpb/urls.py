@@ -20,5 +20,6 @@ from sharpapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('authors/', views.AuthorCrud.as_view())
+    path('authors/', views.AuthorCrud.as_view()),
+    path('authors/<int:id>/',views.AuthorCrud.as_view())
 ]
