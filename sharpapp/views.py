@@ -14,3 +14,12 @@ class AuthorCrud(APIView):
         author = Author.objects.all()
         serilizer = AuthorSeriliazers(author,many=True)
         return Response(serilizer.data)
+
+    def post(self, request):
+        seriliazer = AuthorSeriliazers(data=request.data)
+        if seriliazer.is_valid():
+            seriliazer.save()
+            return Response(seriliazer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
