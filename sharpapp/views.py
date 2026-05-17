@@ -33,6 +33,14 @@ class AuthorCrud(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self,request,id):
+        try:
+            author=Author.objects.get(id=id)
+        except Author.DoesNotExist:
+            return Response("Not Exist", status=status.HTTP_404_NOT_FOUND)
+        author.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 
