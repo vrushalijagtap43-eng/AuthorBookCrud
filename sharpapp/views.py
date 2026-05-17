@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import  status
-from sharpapp.models import Author
-from .serializer import AuthorSeriliazers
+from sharpapp.models import Author,Book
+from .serializer import AuthorSeriliazers,BookSerializer
 from rest_framework.response import Response
 
 # Create your views here.
@@ -40,6 +40,19 @@ class AuthorCrud(APIView):
             return Response("Not Exist", status=status.HTTP_404_NOT_FOUND)
         author.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class Bookcrud(APIView):
+
+    def get(self,request):
+        book=Book.objects.all()
+        serializers=BookSerializer(book,many=True)
+
+        return Response(serializers.data,status=status.HTTP_200_OK)
+
+
+
+
+
 
 
 
